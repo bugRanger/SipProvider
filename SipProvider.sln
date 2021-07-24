@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SipProvider", "SipProvider\SipProvider.csproj", "{96549298-386F-4730-8A45-3A2CB14E638A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96549298-386F-4730-8A45-3A2CB14E638A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96549298-386F-4730-8A45-3A2CB14E638A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96549298-386F-4730-8A45-3A2CB14E638A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96549298-386F-4730-8A45-3A2CB14E638A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B1CCA34F-DC15-49B8-AC7C-A8A7BF613D30}
+	EndGlobalSection
+EndGlobal
