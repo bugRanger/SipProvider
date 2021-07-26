@@ -10,12 +10,22 @@
 
         #region Constructors
 
-        public UserAgent(string value) : base()
+        public UserAgent() : base(HEADER_NAME) { }
+
+        public UserAgent(string value) : base(HEADER_NAME, value)
         {
-            Name = HEADER_NAME;
             Value = value;
         }
 
         #endregion Constructors
+
+        #region Methods
+
+        public override void Handle(ISipHeaderVisitor builder)
+        {
+            builder.Handle(this);
+        }
+
+        #endregion Methods
     }
 }

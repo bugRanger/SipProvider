@@ -2,6 +2,7 @@
 {
     using System;
     using System.Net;
+    using System.Threading.Tasks;
 
     public interface ISipUserAgent
     {
@@ -17,23 +18,25 @@
 
         IPEndPoint Remote { get; }
 
+        IPAddress LocalAddress { get; }
+
+        int LocalPort { get; }
+
         #endregion Properties
 
         #region Events
 
-        event Action<ISipMessage> InboundRequestReceived;
-
-        event Action<ISipMessage> CallRequestReceived;
+        event Action<RequestArgs> RequestReceived;
 
         #endregion Events
 
         #region Methods
 
-        void Register(ISipMessage request);
+        Task<ISipMessage> RegisterAsync(ISipMessage request);
 
-        void Invite(ISipMessage request);
+        Task<ISipMessage> InviteAsync(ISipMessage request);
 
-        void Bye(ISipMessage request);
+        Task<ISipMessage> ByeAsync(ISipMessage request);
 
         #endregion Methods
     }

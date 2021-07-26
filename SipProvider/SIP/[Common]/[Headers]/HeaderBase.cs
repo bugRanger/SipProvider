@@ -2,19 +2,17 @@
 {
     using System;
 
-    using SIPSorcery.SIP;
-
     public abstract class HeaderBase : ISipHeader
     {
-        #region Fields
+        #region Constants
 
-        private static readonly string _delimiter;
+        public const string HEADER_DELIMITER_CHAR = ": ";
 
-        #endregion Fields
+        #endregion Constants
 
         #region Properties
 
-        public string Name { get; protected set; }
+        public string Name { get; private set; }
 
         public string Value { get; protected set; }
 
@@ -22,16 +20,13 @@
 
         #region Constructors
 
-        static HeaderBase()
-        {
-            _delimiter = SIPConstants.HEADER_DELIMITER_CHAR + " ";
-        }
-
-        protected HeaderBase() { }
-
-        protected HeaderBase(string name, string value) 
+        protected HeaderBase(string name) 
         {
             Name = name;
+        }
+
+        protected HeaderBase(string name, string value) : this(name)
+        {
             Value = value;
         }
 
@@ -39,14 +34,16 @@
 
         #region Methods
 
+        public abstract void Handle(ISipHeaderVisitor builder);
+
         public string Pack()
         {
-            return Name + _delimiter + Value;
+            return Name + HEADER_DELIMITER_CHAR + Value;
         }
 
         public virtual bool Unpack(string header)
         {
-            var tokens = header.Split(new[] { _delimiter }, 2, StringSplitOptions.RemoveEmptyEntries);
+            var tokens = header.Split(new[] { HEADER_DELIMITER_CHAR }, 2, StringSplitOptions.RemoveEmptyEntries);
 
             if (tokens.Length != 2)
             {

@@ -42,6 +42,9 @@
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.5.8\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="SIPSorcery, Version=5.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SIPSorcery.5.2.0\lib\net461\SIPSorcery.dll</HintPath>
     </Reference>
@@ -53,12 +56,14 @@
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.WebSockets, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.WebSockets.4.3.0\lib\net46\System.Net.WebSockets.dll</HintPath>
       <Private>True</Private>
@@ -74,6 +79,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
       <Private>True</Private>
@@ -94,6 +100,8 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -116,18 +124,26 @@
     <Compile Include="SDP\[Interfaces]\ISdpAttribute.cs" />
     <Compile Include="SDP\[Interfaces]\ISdpFormat.cs" />
     <Compile Include="SDP\[Interfaces]\ISdpMessage.cs" />
-    <Compile Include="SIP\SipMessage.cs" />
-    <Compile Include="SIP\SipUserAgent.cs" />
-    <Compile Include="SIP\[Headers]\ContentLength.cs" />
-    <Compile Include="SIP\[Headers]\UserAgent.cs" />
-    <Compile Include="SIP\[Headers]\Expires.cs" />
-    <Compile Include="SIP\[Headers]\Content.cs" />
-    <Compile Include="SIP\[Headers]\ContentType.cs" />
-    <Compile Include="SIP\[Headers]\HeaderBase.cs" />
-    <Compile Include="SIP\[Interfaces]\ISipHeader.cs" />
-    <Compile Include="SIP\[Interfaces]\ISipMessage.cs" />
-    <Compile Include="SIP\[Interfaces]\ISipProvider.cs" />
-    <Compile Include="SIP\[Interfaces]\ISipUserAgent.cs" />
+    <Compile Include="SIP\SIPSorcery\SipMessageParser.cs" />
+    <Compile Include="SIP\SIPSorcery\SipMessageBuilder.cs" />
+    <Compile Include="SIP\SIPSorcery\SipUdpChannel.cs" />
+    <Compile Include="SIP\[Common]\SipMessage.cs" />
+    <Compile Include="SIP\SIPSorcery\SipTransport.cs" />
+    <Compile Include="SIP\[Common]\SipUserAgent.cs" />
+    <Compile Include="SIP\[Common]\[Enums]\SipStatusCode.cs" />
+    <Compile Include="SIP\[Common]\[Enums]\SipMethodKind.cs" />
+    <Compile Include="SIP\[Common]\[Args]\RequestArgs.cs" />
+    <Compile Include="SIP\[Common]\[Headers]\ContentLength.cs" />
+    <Compile Include="SIP\[Common]\[Headers]\UserAgent.cs" />
+    <Compile Include="SIP\[Common]\[Headers]\Expires.cs" />
+    <Compile Include="SIP\[Common]\[Headers]\Content.cs" />
+    <Compile Include="SIP\[Common]\[Headers]\ContentType.cs" />
+    <Compile Include="SIP\[Common]\[Headers]\HeaderBase.cs" />
+    <Compile Include="SIP\[Common]\[Interfaces]\ISipHeader.cs" />
+    <Compile Include="SIP\[Common]\[Interfaces]\ISipMessage.cs" />
+    <Compile Include="SIP\[Common]\[Interfaces]\ISipHeaderVisitor.cs" />
+    <Compile Include="SIP\[Common]\[Interfaces]\ISipTransport.cs" />
+    <Compile Include="SIP\[Common]\[Interfaces]\ISipUserAgent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

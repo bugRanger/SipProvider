@@ -1,10 +1,10 @@
 ﻿namespace SipProvider.SIP
 {
-    public class Expires : HeaderBase
+    public class ContentLength : HeaderBase
     {
         #region Constants
 
-        private const string HEADER_NAME = "Expires";
+        private const string HEADER_NAME = "Content-Length";
 
         #endregion Constants
 
@@ -16,7 +16,9 @@
 
         #region Constructors
 
-        public Expires(int value) : base(HEADER_NAME, value.ToString())
+        public ContentLength() : base(HEADER_NAME) { }
+
+        public ContentLength(int value) : base(HEADER_NAME, value.ToString())
         {
             Value = value;
         }
@@ -24,6 +26,11 @@
         #endregion Constructors
 
         #region Methods
+
+        public override void Handle(ISipHeaderVisitor builder)
+        {
+            builder.Handle(this);
+        }
 
         public override bool Unpack(string header)
         {

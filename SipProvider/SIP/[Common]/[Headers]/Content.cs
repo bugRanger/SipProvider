@@ -12,9 +12,10 @@
 
         #region Constructors
 
-        public Content(string value) : base() 
+        public Content() : base(HEADER_NAME) { }
+
+        public Content(string value) : this()
         {
-            Name = HEADER_NAME;
             Value = value;
         }
 
@@ -23,6 +24,11 @@
         #region Methods
 
         public static Content ContentSDP(ISdpMessage sdp) => new Content(sdp.Pack());
+
+        public override void Handle(ISipHeaderVisitor builder)
+        {
+            builder.Handle(this);
+        }
 
         #endregion Methods
     }

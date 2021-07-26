@@ -12,6 +12,10 @@
 
         string TargetId { get; }
 
+        //SipMethodKind Method { get; }
+
+        //SipStatusCode Status { get; }
+
         IReadOnlyCollection<ISipHeader> Headers { get; }
 
         #endregion Properties
@@ -20,7 +24,7 @@
 
         bool TryGet<T>(out T header) where T : ISipHeader, new();
 
-        ISipMessage Append(ISipHeader header);
+        ISipMessage Append<T>(T header) where T : ISipHeader;
 
         #endregion Methods
     }

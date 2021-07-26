@@ -12,9 +12,10 @@
 
         #region Constructors
 
-        public ContentType(string value) : base()
+        public ContentType() : base(HEADER_NAME) { }
+
+        public ContentType(string value) : this()
         {
-            Name = HEADER_NAME;
             Value = value;
         }
 
@@ -23,6 +24,11 @@
         #region Methods
 
         public static ContentType ContentTypeSDP() => new ContentType(SdpMessage.MIME_CONTENTTYPE);
+
+        public override void Handle(ISipHeaderVisitor builder)
+        {
+            builder.Handle(this);
+        }
 
         #endregion Methods
     }

@@ -12,9 +12,11 @@
 
         #region Methods
 
+        bool Unpack(string header);
+
         string Pack();
 
-        bool Unpack(string header);
+        void Handle(ISipHeaderVisitor builder);
 
         #endregion Methods
     }
