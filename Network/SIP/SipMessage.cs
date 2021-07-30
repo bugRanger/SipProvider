@@ -1,4 +1,4 @@
-﻿namespace SipProvider.SIP
+﻿namespace Network.SIP
 {
     using System;
     using System.Collections.Generic;
@@ -15,6 +15,8 @@
         #region Properties
 
         public SipMethodKind Method { get; set; }
+
+        public SipResponseCode ReasonCode { get; set; }
 
         public int Id { get; set; }
 
@@ -92,7 +94,7 @@
             return this;
         }
 
-        internal ISipMessage Append(params string[] headers)
+        public ISipMessage Append(params string[] headers)
         {
             _extensionsCache.AddRange(headers);
             return this;

@@ -1,4 +1,4 @@
-﻿namespace SipProvider.SIP
+﻿namespace Network.SIP
 {
     using System;
     using System.Net;
@@ -24,14 +24,6 @@
         int LocalPort { get; }
 
         #endregion Properties
-
-        #region Events
-
-        event Action<RequestArgs> CallRequestReceived;
-        event Action<RequestArgs> TextRequestReceived;
-        event Action<RequestArgs> RequestReceived;
-
-        #endregion Events
 
         #region Methods
 

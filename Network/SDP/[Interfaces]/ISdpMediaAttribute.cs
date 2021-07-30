@@ -1,6 +1,6 @@
-﻿namespace SipProvider.SIP
+﻿namespace Network.SDP
 {
-    public interface ISipHeader
+    public interface ISdpMediaAttribute
     {
         #region Properties
 
@@ -11,8 +11,6 @@
         #endregion Properties
 
         #region Methods
-
-        bool Unpack(string header);
 
         string Pack();
 

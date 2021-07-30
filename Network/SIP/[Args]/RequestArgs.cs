@@ -1,4 +1,4 @@
-﻿namespace SipProvider.SIP
+﻿namespace Network.SIP
 {
     using System;
     using System.Net;

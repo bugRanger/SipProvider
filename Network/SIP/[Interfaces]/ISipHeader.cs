@@ -1,4 +1,4 @@
-﻿namespace SipProvider.SIP
+﻿namespace Network.SIP
 {
     public interface ISipHeader
     {

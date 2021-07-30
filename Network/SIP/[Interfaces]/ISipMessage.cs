@@ -1,4 +1,4 @@
-﻿namespace SipProvider.SIP
+﻿namespace Network.SIP
 {
     using System.Collections.Generic;
 
@@ -7,6 +7,8 @@
         #region Properties
 
         SipMethodKind Method { get; }
+
+        SipResponseCode ReasonCode { get; }
 
         int Id { get; }
 

@@ -1,4 +1,4 @@
-﻿namespace SipProvider.SIP
+﻿namespace Network.SIP
 {
     using System;
     using System.Net;
@@ -14,7 +14,8 @@
         #region Fields
 
         private readonly ILogger _logger;
-        private readonly ISipProvider _transport;
+        private readonly ISipTransportProvider _provider;
+        private readonly ISipUserAgentHandler _handler;
 
         #endregion Fields
 
@@ -32,34 +33,28 @@
 
         public IPAddress LocalAddress { get; set; }
 
-        public int LocalPort => _transport.Port;
+        public int LocalPort => _provider.Port;
 
         #endregion Properties
 
-        #region Events
-
-        public event Action<RequestArgs> CallRequestReceived;
-        public event Action<RequestArgs> TextRequestReceived;
-        public event Action<RequestArgs> RequestReceived;
-
-        #endregion Events
-
         #region Constructors
 
-        public SipUserAgent(object parent, ISipProvider transport)
+        public SipUserAgent(object parent, ISipTransportProvider provider, ISipUserAgentHandler handler)
         {
             //Parent = parent;
             //ObjectId = SystemIdHelper.Safe(_transport.ToString());
             //_logger = LogManager.GetLogger(SystemIdHelper.GetSystemId(this));
             _logger = LogManager.GetCurrentClassLogger();
 
-            _transport = transport;
-            _transport.RequestReceived += OnRequestReceived;
+            _provider = provider;
+            _provider.RequestReceived += OnRequestReceived;
+
+            _handler = handler;
         }
 
         public void Dispose()
         {
-            _transport.RequestReceived -= OnRequestReceived;
+            _provider.RequestReceived -= OnRequestReceived;
         }
 
         #endregion Constructors
@@ -68,12 +63,12 @@
 
         public Task<ISipMessage> RequestAsync(ISipMessage message)
         {
-            return _transport.RequestAsync(this, message);
+            return _provider.RequestAsync(this, message);
         }
 
         public Task<SocketError> ResponseAsync(ISipMessage message, SipResponseCode code)
         {
-            return _transport.ResponseAsync(this, message, code);
+            return _provider.ResponseAsync(this, message, code);
         }
 
         private void OnRequestReceived(RequestWithHandleArgs args)
@@ -83,19 +78,25 @@
 
             args.Handle = true;
 
+            SipResponseCode responseCode;
+
             if (args.Message.IsText())
             {
-                TextRequestReceived?.Invoke(args);
-                return;
+                responseCode = _handler.IncomingMessage(this, args);
             }
-
-            if (args.Message.IsCall())
+            else
             {
-                CallRequestReceived?.Invoke(args);
-                return;
+                if (args.Message.IsCall())
+                {
+                    responseCode = _handler.IncomingCall(this, args);
+                }
+                else
+                {
+                    responseCode = _handler.IncomingRequest(this, args);
+                }
             }
 
-            RequestReceived?.Invoke(args);
+            ResponseAsync(args.Message, responseCode);
         }
 
         #endregion Methods
