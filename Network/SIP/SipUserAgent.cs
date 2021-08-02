@@ -61,6 +61,16 @@
 
         #region Methods
 
+        public Task<bool> CallAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> WriteAsync() 
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<ISipMessage> RequestAsync(ISipMessage message)
         {
             return _provider.RequestAsync(this, message);
@@ -92,11 +102,95 @@
                 }
                 else
                 {
-                    responseCode = _handler.IncomingRequest(this, args);
+                    responseCode = SipResponseCode.Forbidden;
                 }
             }
 
             ResponseAsync(args.Message, responseCode);
+        }
+
+        private void HandleCall() 
+        {
+            //var inviteTransaction = new UASInviteTransaction(_transport, @event.Request, _serverEp);
+            //inviteTransaction.UASInviteTransactionCancelled += transaction => _logger.Debug(() => $"Transaction {transaction} cancelled");
+            //inviteTransaction.UASInviteTransactionFailed += (transaction, reason) => _logger.Warn(() => $"Transaction {transaction} failed: {reason}");
+
+            //var message = new SipMessage(@event.Request);
+            //var call = @event.Client.FindCall(message);
+            //if (call != null)
+            //{
+            //    inviteTransaction.SendFinalResponse(SIPResponse.GetResponse(@event.Request, SIPResponseStatusCodesEnum.BusyHere, null));
+            //    return;
+            //}
+
+            //var receivedOffer = SDP.ParseSDPDescription(@event.Request.Body);
+            //var acceptedFormat = SDPAudioVideoMediaFormat.Empty;
+
+            //SDPMediaAnnouncement acceptedMedia = null;
+
+            //foreach (var rtpmap in @event.Client.SupportedRtpmaps.Values)
+            //{
+            //    foreach (var media in receivedOffer.Media)
+            //    {
+            //        acceptedFormat = media.MediaFormats.Values.FirstOrDefault(fmt => fmt.Rtpmap == rtpmap);
+            //        if (string.IsNullOrWhiteSpace(acceptedFormat.Rtpmap))
+            //            continue;
+
+            //        acceptedMedia = media;
+            //        break;
+            //    }
+
+            //    if (acceptedFormat.Rtpmap != null)
+            //    {
+            //        break;
+            //    }
+            //}
+
+            //if (acceptedMedia == null || acceptedFormat.IsEmpty())
+            //{
+            //    inviteTransaction.SendFinalResponse(SIPResponse.GetResponse(@event.Request, SIPResponseStatusCodesEnum.NotAcceptable, "Not accepted format"));
+            //    return;
+            //}
+
+            //uint acceptedSsrc = acceptedMedia.SsrcAttributes.FirstOrDefault()?.SSRC ?? 0;
+            //if (acceptedSsrc == 0)
+            //{
+            //    inviteTransaction.SendFinalResponse(SIPResponse.GetResponse(@event.Request, SIPResponseStatusCodesEnum.NotAcceptable, "Not accepted ssrc"));
+            //    return;
+            //}
+
+            //var session = _rtpSessionFactory.Take(acceptedSsrc);
+            //if (session == null)
+            //{
+            //    inviteTransaction.SendFinalResponse(SIPResponse.GetResponse(@event.Request, SIPResponseStatusCodesEnum.BusyHere, "All rtp channels are busy"));
+            //    return;
+            //}
+
+            //var version = GetVersion();
+            //var offer = new SDP(_localEp.Address)
+            //{
+            //    AnnouncementVersion = version,
+            //    SessionId = version.ToString(),
+            //    Username = @event.Client.Username,
+            //    SessionName = DEFAULT_SESSION_NAME,
+            //    Connection = new SDPConnectionInformation(_localEp.Address),
+            //    Media = { new SDPMediaAnnouncement(acceptedFormat.Kind, session.Port, new List<SDPAudioVideoMediaFormat> { acceptedFormat }) },
+            //};
+
+            //call = @event.Client.NewCall(message);
+
+            //if (call.IsRinging)
+            //{
+            //    var code = inviteTransaction.SendProvisionalResponse(SIPResponse.GetResponse(@event.Request, SIPResponseStatusCodesEnum.Ringing, null)).Result;
+            //    if (code != SocketError.Success)
+            //    {
+            //        CallFree(call, false);
+            //        inviteTransaction.SendFinalResponse(SIPResponse.GetResponse(@event.Request, SIPResponseStatusCodesEnum.BusyHere, "All rtp channels are busy"));
+            //        return;
+            //    }
+            //}
+
+            //inviteTransaction.SendFinalResponse(inviteTransaction.GetOkResponse(SDP.SDP_MIME_CONTENTTYPE, offer.ToString()));
         }
 
         #endregion Methods
